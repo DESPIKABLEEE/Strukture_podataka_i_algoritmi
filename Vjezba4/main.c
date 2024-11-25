@@ -90,10 +90,10 @@ int presjek_po_indeksima(int* niz1, int* niz2, int n){
     return brojac;
 }
 
-int main(void){
+int main1(void){
     //clock_t stime = clock();
     //int n = 5;
-    for(int n = 10000; n < 100000; n += 10000){
+    for(int n = 100000000; n < 1000000000; n += 100000000){
         int rezultat = 0;
         int* skupA = generiraj(n);
         int* skupB = generiraj(n);
@@ -103,25 +103,25 @@ int main(void){
         clock_t start,end;
         double vrijeme;
         //printf(" %d \n",n);
-        printf("Zadatak 1 : presjek skupova : \n");
-        start = clock();
-        rezultat = presjek(skupA, skupB, n);
-        end = clock();
-        vrijeme = (double)(end - start) / CLOCKS_PER_SEC;
-        printf("Brojac presjeka je %d, a vrijeme je : %.4f\n",rezultat,vrijeme);
-        printf("\n\n");
+//        printf("Zadatak 1 : presjek skupova : \n");
+//        start = clock();
+//        rezultat = presjek(skupA, skupB, n);
+//        end = clock();
+//        vrijeme = (double)(end - start) / CLOCKS_PER_SEC;
+//        printf("Brojac presjeka je %d, a vrijeme je : %.4f\n",rezultat,vrijeme);
+//        printf("\n\n");
         
-        printf("Zadatak 2 : presjek_jedan_sortirani : ");
-        qsort(skupB, n, sizeof(int), cmp);
-        start = clock();
-        rezultat = presjek_jedan_sortiran(skupA, skupB, n);
-        end = clock();
-        vrijeme = (double)(end - start) / CLOCKS_PER_SEC;
-        printf("Brojac presjek_jedan_sortirani je : %d, a vrijeme je %.4f\n",rezultat,vrijeme);
-        printf("\n\n");
-        
+//        printf("Zadatak 2 : presjek_jedan_sortirani : ");
+//        qsort(skupB, n, sizeof(int), cmp);
+//        start = clock();
+//        rezultat = presjek_jedan_sortiran(skupA, skupB, n);
+//        end = clock();
+//        vrijeme = (double)(end - start) / CLOCKS_PER_SEC;
+//        printf("Brojac presjek_jedan_sortirani je : %d, a vrijeme je %.4f\n",rezultat,vrijeme);
+//        printf("\n\n");
+//        
         printf("Zadatak 3 : presjek_oba_sortirana : ");
-        qsort(skupA, n, sizeof(int), cmp);
+//        qsort(skupA, n, sizeof(int), cmp);
         //printf("Test");
         start = clock();
         rezultat = presjek_oba_sortirana(skupA, skupB, n);
@@ -129,19 +129,19 @@ int main(void){
         vrijeme = (double)(end - start) / CLOCKS_PER_SEC;
         printf("Brojac presjek_oba_sortirana je : %d, a vrijeme je %.4f\n",rezultat,vrijeme);
         printf("\n\n");
-        
-        printf("Zadatak 4 : presjek_po_indeksima : ");
-        shuffle(skupA, n);
-        shuffle(skupB, n);
-        start = clock();
-        rezultat = presjek_po_indeksima(skupA, skupB, n);
-        end = clock();
-        vrijeme = (double)(end - start) / CLOCKS_PER_SEC;
-        printf("Brojac presjek_po_indeksima je : %d, a vrijeme je %.4f\n",rezultat,vrijeme);
-        printf("\n\n");
-        
-        
-        printf("Kraj");
+//        
+//        printf("Zadatak 4 : presjek_po_indeksima : ");
+//        shuffle(skupA, n);
+//        shuffle(skupB, n);
+//        start = clock();
+//        rezultat = presjek_po_indeksima(skupA, skupB, n);
+//        end = clock();
+//        vrijeme = (double)(end - start) / CLOCKS_PER_SEC;
+//        printf("Brojac presjek_po_indeksima je : %d, a vrijeme je %.4f\n",rezultat,vrijeme);
+//        printf("\n\n");
+//        
+//        
+//        printf("Kraj");
         free(skupA);
         free(skupB);
     }
