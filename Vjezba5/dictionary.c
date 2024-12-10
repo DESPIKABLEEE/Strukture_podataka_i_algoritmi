@@ -17,7 +17,7 @@ Dictionary create(){
 // rijeci se dodaju u abecednom redu
 void add(Dictionary dict, char *str) {
     Word* nova_ric = malloc(sizeof(Word));
-    nova_ric->word = strdup(str);
+    nova_ric->word = _strdup(str);
     nova_ric->count = 1;
     nova_ric->next = NULL;
 
@@ -113,235 +113,236 @@ int filter(Word *w){
 
 //VJEZBA
 
-char* find_longest_word(Dictionary dict){
-    Word* tmp = NULL;
-//    tmp->word = NULL; // OVO NE
-    Word* current = dict->next;
-    while(current != NULL){
-        if(tmp == NULL || strlen(current->word) > strlen(tmp->word)){
-            tmp = current;
-            tmp->word = strdup(current->word);
-        }
-        current = current->next;
-    }
-    
-    return tmp->word;
-}
+//char* find_longest_word(Dictionary dict){
+//    Word* tmp = NULL;
+////    tmp->word = NULL; // OVO NE
+//    Word* current = dict->next;
+//    while(current != NULL){
+//        if(tmp == NULL || strlen(current->word) > strlen(tmp->word)){
+//            tmp = current;
+//            tmp->word = strdup(current->word);
+//        }
+//        current = current->next;
+//    }
+//    
+//    return tmp->word;
+//}
+//
+//int number_of_strings_in_dict(Dictionary dict){
+//    int brojac = 0;
+//    Word* tmp = dict->next;
+//    while(tmp != NULL){
+//        brojac++;
+//        tmp = tmp->next;
+//    }
+//    
+//    return brojac;
+//}
+//
+//
+//void add_on_start(Dictionary dict){ // da ne dodamo neku koaj vec postoji nego da samo doda count?
+//    Word* new = malloc(sizeof(Word));
+//    new->word = strdup("Brat");
+//    new->count = 1;
+//    new->next = dict->next;
+//    dict->next = new;
+//}
 
-int number_of_strings_in_dict(Dictionary dict){
-    int brojac = 0;
-    Word* tmp = dict->next;
-    while(tmp != NULL){
-        brojac++;
-        tmp = tmp->next;
-    }
-    
-    return brojac;
-}
-
-
-void add_on_start(Dictionary dict){ // da ne dodamo neku koaj vec postoji nego da samo doda count?
-    Word* new = malloc(sizeof(Word));
-    new->word = strdup("Brat");
-    new->count = 1;
-    new->next = dict->next;
-    dict->next = new;
-}
-
-void add_on_end(Dictionary dict){
-    Word* current = dict->next;
-    while (current->next != NULL) {
-        current = current->next;
-    }
-    Word* new = malloc(sizeof(Word));
-    current->next = new;
-    new->count = 1;
-    new->word = strdup("Brat2");
-}
-
-void add_before_index(Dictionary dict, int index){
-    Word* tmp = dict->next;
-    for(int i = 0; i < index - 1; i++){
-        tmp = tmp->next;
-    }
-    Word* new = malloc(sizeof(Word));
-    new->count = 1;
-    new->next = tmp->next;
-    tmp->next = new;
-    new->word = strdup("Brat3");
-}
-
-void add_before_element(Dictionary dict, char* string){
-    Word* current = dict->next;
-    Word* prev = dict;
-    while(current != NULL){
-        if(strcmp(current->word, string) == 0){
-            Word* new = malloc(sizeof(Word));
-            new->next = current;
-            prev->next = new;
-            new->count = 1;
-            new->word = strdup("Brat3");
-        }
-        prev = current;
-        current = current->next;
-    }
-}
-
-void remove_from_start(Dictionary dict){
-    Word* current = dict->next;
-    Word* tmp = current;
-    dict->next = current->next;
-    free(tmp);
-}
-
-void remove_from_enndd(Dictionary dict){
-    Word* current = dict->next;
-    Word* tmp = NULL;
-    while(current->next->next != NULL){
-        current = current->next;
-    }
-    
-    tmp = current->next;
-    current->next = NULL;
-    free(tmp);
-}
-
-void remove_specific_word(Dictionary dict, char* string){
-    Word* current = dict->next;
-    while (current->next->next != NULL) {
-        if(strcmp(current->next->word, string) == 0){
-            Word* tmp = current->next;
-            current->next = current->next->next;
-            free(tmp);
-        }
-        current = current->next;
-    }
-    
-}
-
-Dictionary reverse_dict(Dictionary dict){
-    Dictionary glava_okrenuta = NULL;
-//    glava_okrenuta->word = NULL;
-//    glava_okrenuta->count = 0;
-//    glava_okrenuta->next = NULL;
-    Word* current = dict->next;
-    while(current != NULL){
-        Word* tmp = current;
-        current = current->next;
-        tmp->next = glava_okrenuta;
-        glava_okrenuta = tmp;
-    }
-    Dictionary head = malloc(sizeof(Word));
-    head->word = NULL;
-    head->next = glava_okrenuta;
-    return head;
-}
-
-void remove_all_above_10chars(Dictionary dict){
-    Word* current = dict->next;
-    Word* prev = dict;
-    
-    while(current != NULL){
-        if(strlen(current->word) < 5){
-            Word* tmp = current;
-            prev->next = current->next;
-            free(tmp);
-            current = prev->next;
-            
-        } else {
-            prev = prev->next;
-            current = current->next;
-        }
-    }
-}
-
-void remove_last_3_elements(Dictionary dict){
-    Word* current = dict->next;
-    Word* prev = dict;
-    int brojac = 0;
-    while(current != NULL){
-        brojac++;
-        current = current->next;
-    }
-    current = dict->next;
-    for(int i = 0; i < brojac - 3; i++){
-        current = current->next;
-        prev = prev->next;
-    }
-    while(current != NULL){
-        Word* tmp = current;
-        current = current->next;
-        free(tmp);
-    }
-    prev->next = NULL;
-}
-
-void add_elements_in_lst(Dictionary dict){
-    Word* current = dict;
-    while(current->next != NULL){
-        if(strlen(current->next->word) > 6){
-            Word* new = malloc(sizeof(Word));
-            new->word = strdup("Batonga");
-            new->count = 1;
-            new->next = current->next;
-            current->next = new;
-            current = current->next;
-        }
-        current = current->next;
-    }
+//void add_on_end(Dictionary dict){
+//    Word* current = dict;
+//    while (current->next != NULL) {
+//        current = current->next;
+//    }
+//    Word* new = malloc(sizeof(Word));
+//    current->next = new;
+//    new->count = 1;
+//    new->word = _strdup("Brat2");
+//	new->next = NULL;
+//}
+//
+//void add_before_index(Dictionary dict, int index){
+//    Word* tmp = dict->next;
+//    for(int i = 0; i < index - 1; i++){
+//        tmp = tmp->next;
+//    }
+//    Word* new = malloc(sizeof(Word));
+//    new->count = 1;
+//    new->next = tmp->next;
+//    tmp->next = new;
+//    new->word = strdup("Brat3");
+//}
+//
+//void add_before_element(Dictionary dict, char* string){
+//    Word* current = dict->next;
+//    Word* prev = dict;
+//    while(current != NULL){
+//        if(strcmp(current->word, string) == 0){
+//            Word* new = malloc(sizeof(Word));
+//            new->next = current;
+//            prev->next = new;
+//            new->count = 1;
+//            new->word = strdup("Brat3");
+//        }
+//        prev = current;
+//        current = current->next;
+//    }
+//}
+//
+//void remove_from_start(Dictionary dict){
+//    Word* current = dict->next;
+//    Word* tmp = current;
+//    dict->next = current->next;
+//    free(tmp);
+//}
+//
+//void remove_from_enndd(Dictionary dict){
+//    Word* current = dict->next;
+//    Word* tmp = NULL;
+//    while(current->next->next != NULL){
+//        current = current->next;
+//    }
+//    
+//    tmp = current->next;
 //    current->next = NULL;
-}
-
-void replace_element_in_lst(Dictionary dict, int start, int end){
-    Word* current = dict->next;
-    Word* tmp = NULL;
-    int i,j;
-    for(i = 0; i < start - 1; i++){
-        current = current->next;
-    }
-    tmp = current->next;
-    current->next = current->next->next;
-    for(j = i; j < end - 2; j++){
-        current = current->next;
-    }
-    tmp->next = current->next;
-    current->next = tmp;
-}
-
-Dictionary add_to_another_lst_longer_words(Dictionary dict, int length){
-    Dictionary glava = malloc(sizeof(Word));
-    glava->count = 0;
-    glava->word = NULL;
-    glava->next = NULL;
-    
-    Word* current = dict->next;
-    Word* prev = dict;
-    while(current != NULL){
-        if (strlen(current->word) > length) {
-            Word* tmp = current;
-            current = current->next;
-            prev->next = current;
-            tmp->next = NULL;
-            if(glava->next == NULL){
-                glava->next = tmp;
-            } else {
-                Word* provjeri = glava->next;
-                    while(provjeri->next != NULL){
-                        provjeri = provjeri->next;
-                    }
-                    provjeri->next = tmp;
-            }
-        } else {
-            current = current->next;
-            prev = prev->next;
-        }
-        
-    }
-    
-    
-    return glava;
-}
-
+//    free(tmp);
+//}
+//
+//void remove_specific_word(Dictionary dict, char* string){
+//    Word* current = dict->next;
+//    while (current->next->next != NULL) {
+//        if(strcmp(current->next->word, string) == 0){
+//            Word* tmp = current->next;
+//            current->next = current->next->next;
+//            free(tmp);
+//        }
+//        current = current->next;
+//    }
+//    
+//}
+//
+//Dictionary reverse_dict(Dictionary dict){
+//    Dictionary glava_okrenuta = NULL;
+////    glava_okrenuta->word = NULL;
+////    glava_okrenuta->count = 0;
+////    glava_okrenuta->next = NULL;
+//    Word* current = dict->next;
+//    while(current != NULL){
+//        Word* tmp = current;
+//        current = current->next;
+//        tmp->next = glava_okrenuta;
+//        glava_okrenuta = tmp;
+//    }
+//    Dictionary head = malloc(sizeof(Word));
+//    head->word = NULL;
+//    head->next = glava_okrenuta;
+//    return head;
+//}
+//
+//void remove_all_above_10chars(Dictionary dict){
+//    Word* current = dict->next;
+//    Word* prev = dict;
+//    
+//    while(current != NULL){
+//        if(strlen(current->word) > 4){
+//            Word* tmp = current;
+//            prev->next = current->next;
+//            free(tmp);
+//            current = prev->next;
+//            
+//        } else {
+//            prev = prev->next;
+//            current = current->next;
+//        }
+//    }
+//}
+//
+//void remove_last_3_elements(Dictionary dict){
+//    Word* current = dict->next;
+//    Word* prev = dict;
+//    int brojac = 0;
+//    while(current != NULL){
+//        brojac++;
+//        current = current->next;
+//    }
+//    current = dict->next;
+//    for(int i = 0; i < brojac - 3; i++){
+//        current = current->next;
+//        prev = prev->next;
+//    }
+//    while(current != NULL){
+//        Word* tmp = current;
+//        current = current->next;
+//        free(tmp);
+//    }
+//    prev->next = NULL;
+//}
+//
+//void add_elements_in_lst(Dictionary dict){
+//    Word* current = dict;
+//    while(current->next != NULL){
+//        if(strlen(current->next->word) > 6){
+//            Word* new = malloc(sizeof(Word));
+//            new->word = strdup("Batonga");
+//            new->count = 1;
+//            new->next = current->next;
+//            current->next = new;
+//            current = current->next;
+//        }
+//        current = current->next;
+//    }
+////    current->next = NULL;
+//}
+//
+//void replace_element_in_lst(Dictionary dict, int start, int end){
+//    Word* current = dict->next;
+//    Word* tmp = NULL;
+//    int i,j;
+//    for(i = 0; i < start - 1; i++){
+//        current = current->next;
+//    }
+//    tmp = current->next;
+//    current->next = current->next->next;
+//    for(j = i; j < end - 2; j++){
+//        current = current->next;
+//    }
+//    tmp->next = current->next;
+//    current->next = tmp;
+//}
+//
+//Dictionary add_to_another_lst_longer_words(Dictionary dict, int length){
+//    Dictionary glava = malloc(sizeof(Word));
+//    glava->count = 0;
+//    glava->word = NULL;
+//    glava->next = NULL;
+//    
+//    Word* current = dict->next;
+//    Word* prev = dict;
+//    while(current != NULL){
+//        if (strlen(current->word) > length) {
+//            Word* tmp = current;
+//            current = current->next;
+//            prev->next = current;
+//            tmp->next = NULL;
+//            if(glava->next == NULL){
+//                glava->next = tmp;
+//            } else {
+//                Word* provjeri = glava->next;
+//                    while(provjeri->next != NULL){
+//                        provjeri = provjeri->next;
+//                    }
+//                    provjeri->next = tmp;
+//            }
+//        } else {
+//            current = current->next;
+//            prev = prev->next;
+//        }
+//        
+//    }
+//    
+//    
+//    return glava;
+//}
+//
 void swap_two_elementsss(Dictionary dict, int first, int second){
     Word* current = dict->next;
     Word* prev = dict;

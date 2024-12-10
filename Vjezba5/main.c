@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
+#define _CRT_SECURE_NO_DEPRECATE
 #include "dictionary_new.h"
 
 int readWord(FILE *fd, char *buffer)
@@ -30,7 +32,7 @@ int main()
 	char buffer[1024];
 	Dictionary dict;
 				
-	fd = fopen("/Users/gabrielmilunovic/Desktop/SPA_VJEZBE/Vjezba5_solo/liar.txt", "rt");
+	fd = fopen("liar1.txt", "rt");
 	if(fd == NULL){
 		printf("Error opening file.\n");
 		return 1;
@@ -47,12 +49,12 @@ int main()
 
 	print(dict);
     
-    printf("\n\n");
+    printf("\n\n\n\n");
     
     
 //    char* rjesenje = find_longest_word(dict);
 //    printf("Najduza rijec je : %s\n",rjesenje);
-//    
+////    
 //    int broj = number_of_strings_in_dict(dict);
 //    printf("Broj stringova je : %d\n",broj);
     
